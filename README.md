@@ -11,3 +11,9 @@ The preliminary technology stack for the Student Task and Assignment Tracker inc
 - **Database:** MySQL
 - **Development Environment:** Visual Studio
 - **Version Control:** Git and GitHub
+## Team Members  
+Dalal Alsaedi - *Dalalalsaedi*   
+David Fong - *david-fong0*  
+Jackson Bennett - *JackBen67*  
+Joud Musallam - *joudmusallam*  
+Nicki Mitchell - *nlmitchellv20*  
