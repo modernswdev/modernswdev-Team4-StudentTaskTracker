@@ -19,8 +19,7 @@ The preliminary technology stack for the Student Task and Assignment Tracker inc
 - **Version Control:** Git and GitHub
 
 ## Project Idea
-[place name here]
-
+Student Task and Assignment Tracker
 
 ## Mission Statement
 The student task and assignment tracker is a web-based application that helps students organize their courses, assignments, due dates, priorities, and completion status in one centralized location. It is designed for college and university students who want an easy way to manage their academic responsibilities, track upcoming and overdue work, and stay organized.
