@@ -19,7 +19,7 @@ The preliminary technology stack for the Student Task and Assignment Tracker inc
 - **Version Control:** Git and GitHub
 
 ## Project Idea
-[place name here]
+Student Task and Assignment Tracker
 
 
 ## Mission Statement
