@@ -34,7 +34,8 @@ Our team will use Slack for daily communication, questions, updates, and reminde
 
 ### Meeting Cadence
 
-Our team plans to meet twice a week, typically on Wednesdays at 8:30 PM online and Fridays at 6:00 PM in person. The meeting times or locations may change depending on everyone’s availability. These meetings will be used for sprint planning, progress updates, discussing blockers, and making sure everyone understands their responsibilities.
+Our team plans to meet twice a week online, typically on Mondays and Wednesdays at 8:30 PM. The meeting times may change depending on everyone's availability. These meetings will be used for sprint planning, progress updates, discussing blockers, and making sure everyone understands their responsibilities.
+
 
 ### Scrum Master
 
