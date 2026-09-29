@@ -40,3 +40,15 @@ Our team plans to meet twice a week online, typically on Mondays and Wednesdays 
 ### Scrum Master
 
 Joud will serve as the Scrum Master for the first sprint. The Scrum Master role will rotate every two weeks so each team member has an opportunity to take on the role.
+
+## Branching Strategy
+Each team member will work on a separate branch for their assigned task or feature. Changes will be submitted through a pull request and reviewed by another team member before being merged into the `main` branch.
+
+## Definition of Done
+A task is considered complete when:
+- The assigned work is finished.
+- The code works correctly.
+- The changes have been tested.
+- A pull request has been created.
+- Another team member has reviewed and approved the changes.
+- The changes are merged into the `main` branch.
