@@ -26,3 +26,17 @@ Student Task and Assignment Tracker
 The student task and assignment tracker is a web-based application that helps students organize their courses, assignments, due dates, priorities, and completion status in one centralized location. It is designed for college and university students who want an easy way to manage their academic responsibilities, track upcoming and overdue work, and stay organized.
 
 
+## Team Workflow
+
+### Communication
+
+Our team will use Slack for daily communication, questions, updates, and reminders. Team members will let the group know when they finish a task, need help, or are blocked. Important decisions made during meetings or in-person conversations will also be posted in Slack so everyone stays informed.
+
+### Meeting Cadence
+
+Our team plans to meet twice a week online, typically on Mondays and Wednesdays at 8:30 PM. The meeting times may change depending on everyone's availability. These meetings will be used for sprint planning, progress updates, discussing blockers, and making sure everyone understands their responsibilities.
+
+
+### Scrum Master
+
+Joud will serve as the Scrum Master for the first sprint. The Scrum Master role will rotate every two weeks so each team member has an opportunity to take on the role.
