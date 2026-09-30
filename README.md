@@ -25,6 +25,14 @@ Student Task and Assignment Tracker
 ## Mission Statement
 The student task and assignment tracker is a web-based application that helps students organize their courses, assignments, due dates, priorities, and completion status in one centralized location. It is designed for college and university students who want an easy way to manage their academic responsibilities, track upcoming and overdue work, and stay organized.
 
+## The Problem
+
+College and university students often manage assignments, projects, quizzes, exams, and other academic responsibilities across multiple courses. Important information may be spread across learning management systems, course syllabi, emails, and personal notes. This can make it difficult for students to keep track of deadlines, prioritize their work, and know which assignments have been completed or are still pending.
+
+## The Solution
+
+The Student Task and Assignment Tracker provides students with one centralized place to manage their academic responsibilities. Students can organize courses and assignments, track due dates and priorities, mark tasks as completed, and view upcoming or overdue assignments through a dashboard. The goal is to help students stay organized and reduce missed deadlines.
+
 
 ## Defining the Project  
 
@@ -70,3 +78,4 @@ A task is considered complete when:
 - A pull request has been created.
 - Another team member has reviewed and approved the changes.
 - The changes are merged into the `main` branch.
+
