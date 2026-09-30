@@ -41,6 +41,15 @@ Our team plans to meet twice a week online, typically on Mondays and Wednesdays 
 
 Joud will serve as the Scrum Master for the first sprint. The Scrum Master role will rotate every two weeks so each team member has an opportunity to take on the role.
 
+ ## The Problem
+
+College and university students often manage assignments, projects, quizzes, exams, and other academic responsibilities across multiple courses. Important information may be spread across learning management systems, course syllabi, emails, and personal notes. This can make it difficult for students to keep track of deadlines, prioritize their work, and know which assignments have been completed or are still pending.
+
+## The Solution
+
+The Student Task and Assignment Tracker provides students with one centralized place to manage their academic responsibilities. Students can organize courses and assignments, track due dates and priorities, mark tasks as completed, and view upcoming or overdue assignments through a dashboard. The goal is to help students stay organized and reduce missed deadlines.
+
+
 ## Branching Strategy
 Each team member will work on a separate branch for their assigned task or feature. Changes will be submitted through a pull request and reviewed by another team member before being merged into the `main` branch.
 
@@ -52,11 +61,3 @@ A task is considered complete when:
 - A pull request has been created.
 - Another team member has reviewed and approved the changes.
 - The changes are merged into the `main` branch.
-
-  ## The Problem
-
-College and university students often manage assignments, projects, quizzes, exams, and other academic responsibilities across multiple courses. Important information may be spread across learning management systems, course syllabi, emails, and personal notes. This can make it difficult for students to keep track of deadlines, prioritize their work, and know which assignments have been completed or are still pending.
-
-## The Solution
-
-The Student Task and Assignment Tracker provides students with one centralized place to manage their academic responsibilities. Students can organize courses and assignments, track due dates and priorities, mark tasks as completed, and view upcoming or overdue assignments through a dashboard. The goal is to help students stay organized and reduce missed deadlines.
