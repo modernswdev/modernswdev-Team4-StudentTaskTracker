@@ -37,7 +37,34 @@ College and university students often manage assignments, projects, quizzes, exa
 The Student Task and Assignment Tracker provides students with one centralized place to manage their academic responsibilities. Students can organize courses and assignments, track due dates and priorities, mark tasks as completed, and view upcoming or overdue assignments through a dashboard. The goal is to help students stay organized and reduce missed deadlines.  
 
 ### Key Features (Initial Backlog)
-[Enter here]  
+**User Account Management** - 
+Students will be able to create an account, log in, and log out of the system. Authentication will
+be required before accessing personal course and assignment information.
+
+**Course Management** - 
+Students will be able to create, edit, view, and delete courses. Each course will contain basic
+information such as the course name, course code, and semester.
+
+**Assignment Management** - 
+Students will be able to create assignments and associate each assignment with a course.
+Assignment information may include the title, description, due date, priority level, and
+completion status. Students will also be able to edit or delete assignments.
+
+**Priority Management** - 
+Students will be able to assign a priority level, such as Low, Medium, or High, to each
+assignment. This will help users identify which tasks require more immediate attention.
+
+**Deadline Tracking** - 
+The system will track assignment due dates and identify upcoming or overdue assignments.
+
+**Assignment Completion** - 
+Students will be able to mark assignments as completed. Completed assignments will remain
+available for reference but will be visually separated from active tasks.
+
+**Dashboard** - 
+The dashboard will provide a summary of the student's academic workload. It will display
+upcoming assignments, overdue tasks, priority levels, and completion status. The dashboard may
+also allow students to filter assignments by course, due date, priority, or status.
 
 ### User Personas
  - College or university students: These are the primary end users of the application. Students will use this tool to assist with managing all projects, tasks, assignments, and exams.
