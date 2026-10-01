@@ -70,4 +70,3 @@ A task is considered complete when:
 - A pull request has been created.
 - Another team member has reviewed and approved the changes.
 - The changes are merged into the `main` branch.
-
