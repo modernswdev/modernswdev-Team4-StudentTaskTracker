@@ -98,3 +98,17 @@ A task is considered complete when:
 - Another team member has reviewed and approved the changes.
 - The changes are merged into the `main` branch.
 
+## Getting Started
+1. Clone the repository.
+2. Open `StudentTaskTracker/StudentTaskTracker.sln` in Visual Studio.
+3. Make sure the active configuration is Debug and x64.
+4. Build the solution.
+5. Run the project with Ctrl + F5.
+
+## Project Structure
+- `src/` - C++ source files
+- `include/` - header files
+- `models/` - data model classes
+- `database/` - database-related code
+- `tests/` - test files
+- `docs/` - project documentation

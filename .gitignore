@@ -4,3 +4,15 @@ dist/
 build/
 .DS_Store
 npm-debug.log*
+.vs/
+x64/
+Debug/
+Release/
+*.user
+*.suo
+*.pdb
+*.idb
+*.ilk
+*.tlog
+*.log
+StudentT.*/
