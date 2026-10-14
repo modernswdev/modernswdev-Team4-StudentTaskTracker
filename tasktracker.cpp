@@ -72,7 +72,7 @@ void displayTasks(const std::vector<Task>& tasks) {
         std::cout << "Priority: "<< tasks[i].priority << "\n";
         std::cout << "Status: "<< tasks[i].status << "\n";
         std::cout << "Description: "<< tasks[i].description << "\n";
-        std::cout << "=========================================================\n";
+        std::cout << "=============================================================\n";
     }
 }
 
