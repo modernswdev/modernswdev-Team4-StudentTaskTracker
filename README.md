@@ -112,3 +112,12 @@ A task is considered complete when:
 - `database/` - database-related code
 - `tests/` - test files
 - `docs/` - project documentation
+
+
+## Scrum Meeting Log
+
+This section tracks our Scrum meetings, recordings, and major action items.
+
+| Date | Recording | Main Topics | Next Steps |
+|------|-----------|-------------|------------|
+| Oct. 14, 2026 | [Watch Recording](PASTE-LINK-HERE) | Project progress and planning | Begin next development tasks |
