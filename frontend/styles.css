@@ -2,15 +2,16 @@
 :root {
   --bg: #f4f6fb;
   --surface: #ffffff;
-  --text: #1f2937;
+  --text: #000000;
   --muted: #6b7280;
   --border: #e5e7eb;
-  --primary: #3b5bdb;
-  --primary-dark: #2f49b3;
-  --blue: #3b82f6;
-  --red: #dc2626;
-  --orange: #f59e0b;
-  --green: #16a34a;
+  --primary: #5371e9;
+  --primary-dark: #3d51a0;
+  --blue: #5c6aee;
+  --red: #d33f3f;
+  --orange: #ecaf46;
+  --green: #3ec955;
+  --white: #ffffff;
   --radius: 10px;
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
@@ -81,14 +82,14 @@ h2 { font-size: 1.15rem; margin-bottom: 12px; }
   font: inherit;
   font-weight: 600;
   padding: 8px 16px;
-  border-radius: 8px;
-  border: 1px solid transparent;
+  border-radius: 10px;
+  border: 3px solid transparent;
   cursor: pointer;
 }
-.btn-primary { background: var(--primary); color: #885c5c; }
-.btn-primary:hover { background: var(--primary-dark); }
-.btn-ghost { background: transparent; border-color: var(--border); color: var(--text); }
-.btn-ghost:hover { background: var(--bg); }
+.btn-primary { background: var(--primary); color: var(--white); transition: transform 0.1s ease-in-out; }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-0.8px); }
+.btn-ghost { background: transparent; border-color: var(--border); color: var(--text); transition: transform 0.1s ease-in-out; }
+.btn-ghost:hover { background: var(--bg); transform: translateY(-0.8px); }
 .btn:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
