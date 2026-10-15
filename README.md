@@ -120,4 +120,4 @@ This section tracks our Scrum meetings, recordings, and major action items.
 
 | Date | Recording | Main Topics | Next Steps |
 |------|-----------|-------------|------------|
-| Oct. 14, 2026 | [Watch Recording](PASTE-LINK-HERE) | Project progress and planning | Begin next development tasks |
+| Oct. 14, 2026 | [Watch Recording]([PASTE-LINK-HERE](https://ualr-edu.zoom.us/rec/share/vM6n0mMp33Xnd5Tl1I0zD0MJLnPnvSmYMHmrieg27zpLS216sH-9tgxkFe9Kjh26.73AsemSFZSE4VYGF) | Project progress and planning | Begin next development tasks |
