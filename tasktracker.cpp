@@ -76,6 +76,34 @@ void displayTasks(const std::vector<Task>& tasks) {
     }
 }
 
+// Function used to mark an existing task as complete
+void markTaskCompleted(std::vector<Task>& tasks) {
+    if (tasks.empty()) {
+        std::cout << "\n No tasks available to mark complete.\n";
+        return;
+    }
+
+    displayTasks(tasks);
+    std::cout << "Enter the task number to mark complete: ";
+
+    int taskNumber = 0;
+    if (!(std::cin >> taskNumber)) {
+        std::cout << "\nInvalid input. Please enter a task number.\n";
+        std::cin.clear();
+        clearInput();
+        return;
+    }
+    clearInput();
+
+    if (taskNumber < 1 || static_cast<size_t>(taskNumber) > tasks.size()) {
+        std::cout << "\nInvalid task number. No task was changed.\n";
+        return;
+    }
+
+    tasks[static_cast<size_t>(taskNumber - 1)].status = "Complete";
+    std::cout << "\nTask marked as complete.\n";
+}
+
 int main() {
     std:: vector<Task> taskList;
     int choice = 0;
@@ -86,8 +114,9 @@ int main() {
         std::cout << "========================================\n";
         std::cout << "1. Add a New Task\n";
         std::cout << "2. View All Tasks\n";
-        std::cout << "3. Exit\n";
-        std::cout << "Enter an option (1-3): ";
+        std::cout << "3. Mark a Task Complete\n";
+        std::cout << "4. Exit\n";
+        std::cout << "Enter an option (1-4): ";
 
         if (!(std::cin >> choice)) {
             std::cout << "Invalid input. Please enter a number.\n";
@@ -106,16 +135,17 @@ int main() {
             displayTasks(taskList);
             break;
         case 3:
+            markTaskCompleted(taskList);
+            break;
+        case 4:
             std::cout << "\nExiting task tracker. Goodbye!\n";
             break;     
         default:
-            std::cout << "\n Invalid choice. Please enter 1, 2, or 3.\n";
+            std::cout << "\n Invalid choice. Please enter a number from 1 to 4.\n";
             break;
         }
-    } while (choice != 3);
+    } while (choice != 4);
 
     return 0;
-    {
-    }
     
 }
