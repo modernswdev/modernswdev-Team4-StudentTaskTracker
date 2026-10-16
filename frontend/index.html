@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Task Tracker - Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Student Task Tracker</div>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html" class="active">Dashboard</a>
+        <a href="#">Courses</a>
+        <a href="#">Assignments</a>
+      </nav>
+      <div class="user-area">
+        <span id="user-name" class="user-name">Student</span>
+        <button type="button" class="btn btn-ghost" id="logout-btn">Log out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <div class="page-head">
+      <div>
+        <h1>Dashboard</h1>
+        <p class="subtle" id="today-label"></p>
+      </div>
+      <button type="button" class="btn btn-primary" id="add-btn">+ Add Assignment</button>
+    </div>
+
+    <!-- Summary cards -->
+    <section class="cards" aria-label="Workload summary">
+      <div class="card card-blue">
+        <span class="card-label">Upcoming (next 7 days)</span>
+        <span class="card-value" id="stat-upcoming">0</span>
+      </div>
+      <div class="card card-red">
+        <span class="card-label">Overdue</span>
+        <span class="card-value" id="stat-overdue">0</span>
+      </div>
+      <div class="card card-orange">
+        <span class="card-label">High priority</span>
+        <span class="card-value" id="stat-high">0</span>
+      </div>
+      <div class="card card-green">
+        <span class="card-label">Completed</span>
+        <span class="card-value" id="stat-completed">0</span>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters" aria-label="Filters">
+      <label>
+        Course
+        <select id="filter-course"></select>
+      </label>
+      <label>
+        Priority
+        <select id="filter-priority">
+          <option value="all">All priorities</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+      </label>
+      <label>
+        Status
+        <select id="filter-status">
+          <option value="all">All</option>
+          <option value="overdue">Overdue</option>
+          <option value="upcoming">Upcoming</option>
+          <option value="completed">Completed</option>
+        </select>
+      </label>
+      <label>
+        Sort by
+        <select id="sort-by">
+          <option value="due">Due date</option>
+          <option value="priority">Priority</option>
+          <option value="course">Course</option>
+        </select>
+      </label>
+      <button type="button" class="btn btn-ghost" id="reset-filters">Reset</button>
+    </section>
+
+    <!-- Active assignments -->
+    <section class="panel">
+      <h2>Active assignments <span class="count" id="active-count">0</span></h2>
+      <ul class="task-list" id="active-list"></ul>
+      <p class="empty" id="active-empty" hidden>No active assignments match your filters.</p>
+    </section>
+
+    <!-- Completed assignments -->
+    <section class="panel panel-completed">
+      <h2>Completed <span class="count" id="completed-count">0</span></h2>
+      <ul class="task-list" id="completed-list"></ul>
+      <p class="empty" id="completed-empty" hidden>Nothing completed yet.</p>
+    </section>
+
+  </main>
+
+  <!-- Add assignment dialog -->
+  <dialog id="add-dialog">
+    <form method="dialog" id="add-form">
+      <h2>Add Assignment</h2>
+
+      <label>
+        Title
+        <input type="text" id="new-title" required maxlength="100">
+      </label>
+
+      <label>
+        Course
+        <select id="new-course" required></select>
+      </label>
+
+      <label>
+        Due date
+        <input type="date" id="new-due" required>
+      </label>
+
+      <label>
+        Priority
+        <select id="new-priority">
+          <option value="Low">Low</option>
+          <option value="Medium" selected>Medium</option>
+          <option value="High">High</option>
+        </select>
+      </label>
+
+      <label>
+        Description (optional)
+        <textarea id="new-desc" rows="3" maxlength="500"></textarea>
+      </label>
+
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-ghost" id="cancel-btn">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
