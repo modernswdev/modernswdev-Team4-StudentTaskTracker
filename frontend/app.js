@@ -262,7 +262,13 @@
     els.addDialog.close();
     render();
   }
+function deleteAssignment(id) {
+    assignments = assignments.filter(function (assignment) {
+        return assignment.id !== id;
+    });
 
+    render();
+}
   function resetFilters() {
     els.filterCourse.value = "all";
     els.filterPriority.value = "all";
