@@ -3,6 +3,7 @@
 #include <vector>
 #include <iomanip>
 #include <limits>
+#include "StudentTaskTracker/include/Task.h"
 
 // Structure for Student Task and Assignment Tracker, which should include:
 // Task Title
@@ -12,16 +13,6 @@
 // Status
 // Description
 
-struct Task {
-    std:: string title;
-    std:: string course;
-    std:: string dueDate;
-    std:: string priority;
-    std:: string status;
-    std:: string description;
-};
-
-// Function to clear newline characters from input
 void clearInput() {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }

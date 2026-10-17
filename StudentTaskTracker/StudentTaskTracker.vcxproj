@@ -127,7 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="StudentTaskTracker.cpp" />
+    <ClCompile Include="src\Task.cpp" />
+    <ClCompile Include="src\StudentTaskTracker.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Task.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
