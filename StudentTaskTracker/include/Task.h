@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 
 struct Task {
     std::string title;
@@ -11,3 +12,4 @@ struct Task {
 };
 
 void setTaskPriority(Task& task, const std::string& priority);
+bool addTask(std::vector<Task>& tasks, const Task& task);
