@@ -120,7 +120,8 @@ This section tracks our Scrum meetings, recordings, and major action items.
 
 | Date | Recording | Main Topics | Next Steps |
 |------|-----------|-------------|------------|
-| Oct. 5, 2026 | [Watch Recording]([PASTE-LINK-HERE](https://ualr-edu.zoom.us/rec/share/vM6n0mMp33Xnd5Tl1I0zD0MJLnPnvSmYMHmrieg27zpLS216sH-9tgxkFe9Kjh26.73AsemSFZSE4VYGF) | Project Board setup | Sprint 1 task planning |
-| Oct. 12, 2026 | [Watch Recording]([PASTE-LINK-HERE](https://ualr-edu.zoom.us/rec/share/vM6n0mMp33Xnd5Tl1I0zD0MJLnPnvSmYMHmrieg27zpLS216sH-9tgxkFe9Kjh26.73AsemSFZSE4VYGF) | Sprint 1 planning | Begin next development tasks |
-| Oct. 14, 2026 | [Watch Recording]([PASTE-LINK-HERE](https://ualr-edu.zoom.us/rec/share/vM6n0mMp33Xnd5Tl1I0zD0MJLnPnvSmYMHmrieg27zpLS216sH-9tgxkFe9Kjh26.73AsemSFZSE4VYGF) | Sprint 1 project progress and planning | Begin next development tasks |
-| Oct. 21, 2026 | [Watch Recording]([PASTE-LINK-HERE](https://ualr-edu.zoom.us/rec/share/vM6n0mMp33Xnd5Tl1I0zD0MJLnPnvSmYMHmrieg27zpLS216sH-9tgxkFe9Kjh26.73AsemSFZSE4VYGF) | Sprint 2 Assignment Review | Begin Sprint 2 tasks, Scrum Master rotation | 
+| Oct. 5, 2026 | [Watch Recording](https://drive.google.com/file/d/12hOONN-SQb_JZS3GLG7HDIEqdDXEwbro/view?usp=drive_link) | Project Board setup | Sprint 1 task planning |
+| Oct. 12, 2026 | [Watch Recording](https://drive.google.com/file/d/1TPZnTrWenqHdrR_hHkpMUTV4VCZ6V9Xb/view?usp=drive_link) | Sprint 1 planning | Begin next development tasks |
+| Oct. 14, 2026 | [Watch Recording](https://ualr-edu.zoom.us/rec/share/vM6n0mMp33Xnd5Tl1I0zD0MJLnPnvSmYMHmrieg27zpLS216sH-9tgxkFe9Kjh26.73AsemSFZSE4VYGF) | Sprint 1 project progress and planning | Begin next development tasks |
+| Oct. 21, 2026 | [Watch Recording](https://drive.google.com/file/d/1fyqMcsiQelDo4b3E1DSZib96AoxccTQa/view?usp=sharing)) | Sprint 2 Assignment Review | Begin Sprint 2 tasks, Scrum Master rotation | 
+| Oct. 26, 2026 | [Watch Recording](https://ualr-edu.zoom.us/rec/share/0kFYGXJf5Rq_c1v7shXBFX48Dc_hv9RSGznPt-Mb8mOfkO5p3SCXF0WaYq_2j2vn.rDEOXud_uexqn8SK?startTime=1793064774000) (Passcode: UdJ3Xt$Y)| Project Board review, Sprint 2 progress, Sprint 3 planning, and presentation assignments | Submit the project board before Wednesday, finish remaining Sprint 2 tasks, begin Sprint 3, and work on assigned presentation parts |
