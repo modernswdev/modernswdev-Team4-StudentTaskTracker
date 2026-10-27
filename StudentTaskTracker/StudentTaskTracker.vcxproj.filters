@@ -39,9 +39,15 @@
     <ClCompile Include="src\StudentTaskTracker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Database.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Task.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Database.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
