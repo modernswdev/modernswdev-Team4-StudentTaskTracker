@@ -1,1 +1,50 @@
 
+
+name: C++ CI
+
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build solution
+        shell: pwsh
+        run: |
+          msbuild StudentTaskTracker/StudentTaskTracker.sln /m /p:Configuration=Debug /p:Platform=x64
+          if ($LASTEXITCODE -ne 0) {
+            throw "Solution build failed."
+          }
+
+      - name: Run native C++ unit tests
+        shell: pwsh
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $vstest = & $vswhere -latest -products '*' -find 'Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe' | Select-Object -First 1
+
+          if (-not $vstest) {
+            throw "Could not find vstest.console.exe."
+          }
+
+          $testDll = Get-ChildItem -Path StudentTaskTracker -Filter "StudentTaskTrackerTests.dll" -Recurse |
+            Select-Object -First 1
+
+          if (-not $testDll) {
+            throw "Could not find the compiled native unit test DLL."
+          }
+
+          & $vstest $testDll.FullName
+
+          if ($LASTEXITCODE -ne 0) {
+            throw "Unit tests failed."
+          }
