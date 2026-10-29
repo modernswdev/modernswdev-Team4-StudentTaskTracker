@@ -1,0 +1,74 @@
+
+
+name: C++ CI
+
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up MySQL development files
+        shell: pwsh
+        run: |
+          $url = "https://cdn.mysql.com/Downloads/MySQL-8.4/mysql-8.4.13-winx64.zip"
+          $zip = "$env:RUNNER_TEMP\mysql.zip"
+          $temp = "$env:RUNNER_TEMP\mysql"
+          $dest = "$env:ProgramFiles\MySQL\MySQL Server 8.4"
+
+          Invoke-WebRequest -Uri $url -OutFile $zip
+          Expand-Archive -Path $zip -DestinationPath $temp
+
+          $source = Join-Path $temp "mysql-8.4.13-winx64"
+
+          if (!(Test-Path "$source\include\mysql.h")) {
+            throw "MySQL header mysql.h was not found."
+          }
+
+          if (!(Test-Path "$source\lib\libmysql.lib")) {
+            throw "MySQL library libmysql.lib was not found."
+          }
+
+          New-Item -ItemType Directory -Path $dest -Force | Out-Null
+          Copy-Item "$source\*" -Destination $dest -Recurse -Force
+
+      - name: Set up MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build solution
+        shell: pwsh
+        run: |
+          msbuild StudentTaskTracker/StudentTaskTracker.sln /m /p:Configuration=Debug /p:Platform=x64
+          if ($LASTEXITCODE -ne 0) {
+            throw "Solution build failed."
+          }
+
+      - name: Run native C++ unit tests
+        shell: pwsh
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $vstest = & $vswhere -latest -products '*' -find 'Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe' | Select-Object -First 1
+
+          if (-not $vstest) {
+            throw "Could not find vstest.console.exe."
+          }
+
+          $testDll = Get-ChildItem -Path StudentTaskTracker -Filter "StudentTaskTrackerTests.dll" -Recurse |
+            Select-Object -First 1
+
+          if (-not $testDll) {
+            throw "Could not find the compiled native unit test DLL."
+          }
+
+          & $vstest $testDll.FullName
+
+          if ($LASTEXITCODE -ne 0) {
+            throw "Unit tests failed."
+          }
