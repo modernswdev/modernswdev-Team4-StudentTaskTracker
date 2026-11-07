@@ -51,27 +51,48 @@
   let assignments = [];
   let nextId = 1;
 
-  function loadData() {
-    courses = [
-      { id: 1, code: "CS 101", name: "Intro to Programming" },
-      { id: 2, code: "MATH 201", name: "Calculus II" },
-      { id: 3, code: "ENG 110", name: "College Writing" },
-      { id: 4, code: "BIO 120", name: "General Biology" }
-    ];
+    async function loadData() {
+        courses = [
+            { id: 1, code: "CS 101", name: "Intro to Programming" },
+            { id: 2, code: "MATH 201", name: "Calculus II" },
+            { id: 3, code: "ENG 110", name: "College Writing" },
+            { id: 4, code: "BIO 120", name: "General Biology" }
+        ];
 
-    assignments = [
-      { id: 1, courseId: 1, title: "Lab 4: Loops and Arrays", description: "", dueDate: daysFromNow(-2), priority: "High", completed: false },
-      { id: 2, courseId: 2, title: "Problem Set 6", description: "", dueDate: daysFromNow(1), priority: "High", completed: false },
-      { id: 3, courseId: 3, title: "Essay Draft 2", description: "", dueDate: daysFromNow(3), priority: "Medium", completed: false },
-      { id: 4, courseId: 4, title: "Chapter 5 Quiz", description: "", dueDate: daysFromNow(5), priority: "Low", completed: false },
-      { id: 5, courseId: 1, title: "Midterm Project Proposal", description: "", dueDate: daysFromNow(12), priority: "Medium", completed: false },
-      { id: 6, courseId: 2, title: "Exam 2", description: "", dueDate: daysFromNow(16), priority: "High", completed: false },
-      { id: 7, courseId: 3, title: "Reading Response 3", description: "", dueDate: daysFromNow(-6), priority: "Low", completed: true },
-      { id: 8, courseId: 4, title: "Lab Report 1", description: "", dueDate: daysFromNow(-9), priority: "Medium", completed: true }
-    ];
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:8080/api/assignments"
+            );
 
-    nextId = assignments.length + 1;
-  }
+            if (!response.ok) {
+                throw new Error("Failed to load assignments");
+            }
+
+            const data = await response.json();
+
+            assignments = data.map(function (task, index) {
+                const courseMatch = courses.find(function (c) {
+                    return task.course.includes(c.code);
+                });
+
+                return {
+                    id: task.id,
+                    courseId: courseMatch ? courseMatch.id : 1,
+                    title: task.title,
+                    description: task.description,
+                    dueDate: task.dueDate,
+                    priority: task.priority,
+                    completed: task.status === "Completed"
+                };
+            });
+
+            nextId = assignments.length + 1;
+        }
+        catch (error) {
+            console.error("Could not load assignments:", error);
+            assignments = [];
+        }
+    }
 
   // ---------- Derived state ----------
   function statusOf(a) {
@@ -226,15 +247,46 @@
   }
 
   // ---------- Events ----------
-  function onToggle(e) {
-    if (e.target.type !== "checkbox") return;
-    const id = Number(e.target.dataset.id);
-    const a = assignments.find(function (x) { return x.id === id; });
-    if (!a) return;
-    a.completed = e.target.checked;
-    // TODO: send update to backend (e.g., PUT /api/assignments/{id})
-    render();
-  }
+    async function onToggle(e) {
+        if (e.target.type !== "checkbox") return;
+
+        const id = Number(e.target.dataset.id);
+        const a = assignments.find(function (x) {
+            return x.id === id;
+        });
+
+        if (!a) return;
+
+        const newStatus = e.target.checked ? "Completed" : "To Do";
+
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:8080/api/assignments/" + id,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        status: newStatus
+                    })
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to update task");
+            }
+
+            a.completed = e.target.checked;
+            render();
+        }
+        catch (error) {
+            console.error(error);
+            alert("Could not update the assignment.");
+
+            e.target.checked = !e.target.checked;
+        }
+    }
 
   function openAddDialog() {
     els.addForm.reset();
@@ -243,25 +295,53 @@
     els.newTitle.focus();
   }
 
-  function onAddSubmit(e) {
-    e.preventDefault();
-    const title = els.newTitle.value.trim();
-    if (!title || !els.newDue.value) return;
+    async function onAddSubmit(e) {
+        e.preventDefault();
 
-    assignments.push({
-      id: nextId++,
-      courseId: Number(els.newCourse.value),
-      title: title,
-      description: els.newDesc.value.trim(),
-      dueDate: els.newDue.value,
-      priority: els.newPriority.value,
-      completed: false
-    });
-    // TODO: send new assignment to backend (e.g., POST /api/assignments)
+        const title = els.newTitle.value.trim();
 
-    els.addDialog.close();
-    render();
-  }
+        if (!title || !els.newDue.value) {
+            return;
+        }
+
+        const course =
+            els.newCourse.options[els.newCourse.selectedIndex].text;
+
+        const newAssignment = {
+            title: title,
+            course: course,
+            dueDate: els.newDue.value,
+            priority: els.newPriority.value,
+            status: "To Do",
+            description: els.newDesc.value.trim()
+        };
+
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:8080/api/assignments",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(newAssignment)
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to save assignment");
+            }
+
+            alert("Assignment saved successfully!");
+
+            els.addDialog.close();
+        }
+        catch (error) {
+            console.error(error);
+            alert("Could not save assignment to the database.");
+        }
+    }
+    
 function deleteAssignment(id) {
     assignments = assignments.filter(function (assignment) {
         return assignment.id !== id;
@@ -277,9 +357,10 @@ function deleteAssignment(id) {
     render();
   }
 
-  function init() {
-    loadData();
-    populateCourseSelects();
+    async function init() {
+        await loadData();
+
+        populateCourseSelects();
 
     els.todayLabel.textContent = new Date().toLocaleDateString(undefined, {
       weekday: "long", year: "numeric", month: "long", day: "numeric"
