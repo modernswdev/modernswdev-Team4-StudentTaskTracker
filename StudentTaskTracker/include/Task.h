@@ -9,6 +9,7 @@ struct Task {
     std::string priority;
     std::string status;
     std::string description;
+    int id;
 };
 
 void setTaskPriority(Task& task, const std::string& priority);

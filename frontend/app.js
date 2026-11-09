@@ -135,9 +135,73 @@
     newDue: $("new-due"),
     newPriority: $("new-priority"),
     newDesc: $("new-desc"),
+    navDashboard: $("nav-dashboard"),
+    navCourses: $("nav-courses"),
+    navAssignments: $("nav-assignments"),
+
+    dashboardView: $("dashboard-view"),
+    coursesView: $("courses-view"),
+    assignmentsView: $("assignments-view"),
+
+    coursesList: $("courses-list"),
+    allAssignmentsList: $("all-assignments-list"),
     logoutBtn: $("logout-btn")
   };
+    function showDashboard() {
+        els.dashboardView.hidden = false;
+        els.coursesView.hidden = true;
+        els.assignmentsView.hidden = true;
 
+        els.navDashboard.classList.add("active");
+        els.navCourses.classList.remove("active");
+        els.navAssignments.classList.remove("active");
+    }
+
+    function showCourses() {
+        els.dashboardView.hidden = true;
+        els.coursesView.hidden = false;
+        els.assignmentsView.hidden = true;
+
+        els.navDashboard.classList.remove("active");
+        els.navCourses.classList.add("active");
+        els.navAssignments.classList.remove("active");
+
+        els.coursesList.innerHTML = courses.map(function (c) {
+            return `
+            <div class="panel">
+                <h2>${escapeHTML(c.code)}</h2>
+                <p>${escapeHTML(c.name)}</p>
+            </div>
+        `;
+        }).join("");
+    }
+
+    function showAssignments() {
+        els.dashboardView.hidden = true;
+        els.coursesView.hidden = true;
+        els.assignmentsView.hidden = false;
+
+        els.navDashboard.classList.remove("active");
+        els.navCourses.classList.remove("active");
+        els.navAssignments.classList.add("active");
+
+        els.allAssignmentsList.innerHTML = assignments.map(function (a) {
+            const course = courseOf(a) || {
+                code: "Course",
+                name: "Not listed"
+            };
+
+            return `
+            <div class="panel">
+                <h2>${escapeHTML(a.title)}</h2>
+                <p>${escapeHTML(course.code)} - ${escapeHTML(course.name)}</p>
+                <p>Due: ${escapeHTML(a.dueDate)}</p>
+                <p>Priority: ${escapeHTML(a.priority)}</p>
+                <p>Status: ${a.completed ? "Completed" : "To Do"}</p>
+            </div>
+        `;
+        }).join("");
+    }
   // ---------- Rendering ----------
   function populateCourseSelects() {
     const filterValue = els.filterCourse.value || "all";
@@ -359,7 +423,20 @@ function deleteAssignment(id) {
 
     async function init() {
         await loadData();
+        els.navDashboard.addEventListener("click", function (e) {
+            e.preventDefault();
+            showDashboard();
+        });
 
+        els.navCourses.addEventListener("click", function (e) {
+            e.preventDefault();
+            showCourses();
+        });
+
+        els.navAssignments.addEventListener("click", function (e) {
+            e.preventDefault();
+            showAssignments();
+        });
         populateCourseSelects();
 
     els.todayLabel.textContent = new Date().toLocaleDateString(undefined, {
@@ -375,12 +452,12 @@ function deleteAssignment(id) {
     els.addBtn.addEventListener("click", openAddDialog);
     els.cancelBtn.addEventListener("click", function () { els.addDialog.close(); });
     els.addForm.addEventListener("submit", onAddSubmit);
-    els.logoutBtn.addEventListener("click", function () {
-      // TODO: call backend logout, then redirect to login page
-      alert("Logout will be connected once user accounts are implemented.");
-    });
+        els.logoutBtn.addEventListener("click", function () {
+            window.location.href = "login.html";
+        });
 
-    render();
+        render();
+        showDashboard();
   }
 
   init();
