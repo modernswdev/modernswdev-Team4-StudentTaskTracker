@@ -55,6 +55,12 @@ bool Database::connect()
     std::string password = getEnv("MYSQL_PASSWORD", "tracker_password");
     std::string database = getEnv("MYSQL_DATABASE", "student_task_tracker");
 
+    #ifndef _WIN32
+    my_bool verify_server_cert = 0;
+    mysql_options(connection, MYSQL_OPT_SSL_VERIFY_SERVER_CERT,
+                  &verify_server_cert);
+    #endif
+
     if (!mysql_real_connect(
         connection,
         host.c_str(),
