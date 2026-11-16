@@ -21,5 +21,15 @@ VALUES (
     'In Progress',
     'Complete database connection and task data'
 );
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+INSERT INTO users (username, password)
+VALUES ('student', 'test123');
 
 SELECT * FROM tasks;
+SELECT * FROM student_task_tracker.tasks;
+SELECT * FROM users;
+SELECT * FROM student_task_tracker.users;

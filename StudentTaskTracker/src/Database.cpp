@@ -1,28 +1,99 @@
 #include "../include/Database.h"
 #include <iostream>
 #include <cstdlib>
+#include <string>
 
-Database::Database() {
+
+// Read an environment variable.
+// If it does not exist, use the fallback value.
+std::string getEnv(const char* name, const char* fallback)
+{
+#ifdef _WIN32
+
+    char* value = nullptr;
+    size_t size = 0;
+
+    if (_dupenv_s(&value, &size, name) == 0 &&
+        value != nullptr)
+    {
+        std::string result(value);
+        std::free(value);
+        return result;
+    }
+
+#else
+
+    const char* value = std::getenv(name);
+
+    if (value != nullptr)
+    {
+        return std::string(value);
+    }
+
+#endif
+
+    return std::string(fallback);
+}
+
+
+Database::Database()
+{
     connection = mysql_init(nullptr);
 }
 
-Database::~Database() {
-    if (connection) {
+
+Database::~Database()
+{
+    if (connection)
+    {
         mysql_close(connection);
     }
 }
 
-bool Database::connect() {
 
-    char* dbPassword = nullptr;
-    size_t passwordLength = 0;
+bool Database::connect()
+{
+    if (!connection)
+    {
+        std::cout
+            << "Unable to initialize MySQL connection."
+            << std::endl;
 
-    if (_dupenv_s(
-        &dbPassword,
-        &passwordLength,
-        "STUDENT_TRACKER_DB_PASSWORD"
-    ) != 0 || dbPassword == nullptr) {
+        return false;
+    }
 
+    // Docker will use MYSQL_HOST.
+    // Local Visual Studio will fall back to localhost.
+    std::string host =
+        getEnv("MYSQL_HOST", "localhost");
+
+    // Docker will use MYSQL_USER.
+    // Local Visual Studio will fall back to root.
+    std::string user =
+        getEnv("MYSQL_USER", "root");
+
+    // Docker uses MYSQL_PASSWORD.
+    std::string password =
+        getEnv("MYSQL_PASSWORD", "");
+
+    // Local Visual Studio uses this variable.
+    if (password.empty())
+    {
+        password =
+            getEnv(
+                "STUDENT_TRACKER_DB_PASSWORD",
+                ""
+            );
+    }
+
+    std::string database =
+        getEnv(
+            "MYSQL_DATABASE",
+            "student_task_tracker"
+        );
+
+    if (password.empty())
+    {
         std::cout
             << "Database password environment variable is not set."
             << std::endl;
@@ -32,20 +103,20 @@ bool Database::connect() {
 
     connection = mysql_real_connect(
         connection,
-        "localhost",
-        "root",
-        dbPassword,
-        "student_task_tracker",
+        host.c_str(),
+        user.c_str(),
+        password.c_str(),
+        database.c_str(),
         3306,
         nullptr,
         0
     );
 
-    free(dbPassword);
-
-    if (!connection) {
+    if (!connection)
+    {
         std::cout
-            << "Database connection failed."
+            << "Database connection failed: "
+            << mysql_error(connection)
             << std::endl;
 
         return false;
@@ -58,6 +129,7 @@ bool Database::connect() {
     return true;
 }
 
+
 bool Database::addTaskToDatabase(
     const std::string& title,
     const std::string& course,
@@ -65,8 +137,10 @@ bool Database::addTaskToDatabase(
     const std::string& priority,
     const std::string& status,
     const std::string& description
-) {
-    if (!connection) {
+)
+{
+    if (!connection)
+    {
         std::cout
             << "Database connection failed."
             << std::endl;
@@ -74,25 +148,29 @@ bool Database::addTaskToDatabase(
         return false;
     }
 
-    auto escape = [this](const std::string& value) {
-        std::string escaped(
-            value.size() * 2 + 1,
-            '\0'
-        );
-
-        unsigned long length =
-            mysql_real_escape_string(
-                connection,
-                &escaped[0],
-                value.c_str(),
-                static_cast<unsigned long>(
-                    value.size()
-                    )
+    auto escape =
+        [this](const std::string& value)
+        {
+            std::string escaped(
+                value.size() * 2 + 1,
+                '\0'
             );
 
-        escaped.resize(length);
-        return escaped;
+            unsigned long length =
+                mysql_real_escape_string(
+                    connection,
+                    &escaped[0],
+                    value.c_str(),
+                    static_cast<unsigned long>(
+                        value.size()
+                        )
+                );
+
+            escaped.resize(length);
+
+            return escaped;
         };
+
 
     std::string query =
         "INSERT INTO tasks "
@@ -105,11 +183,12 @@ bool Database::addTaskToDatabase(
         escape(status) + "', '" +
         escape(description) + "')";
 
+
     if (mysql_query(
         connection,
         query.c_str()
-    ) != 0) {
-
+    ) != 0)
+    {
         std::cout
             << "Failed to add task: "
             << mysql_error(connection)
@@ -125,9 +204,11 @@ bool Database::addTaskToDatabase(
     return true;
 }
 
+
 void Database::getAllTasks()
 {
-    if (!connection) {
+    if (!connection)
+    {
         std::cout
             << "No database connection."
             << std::endl;
@@ -141,8 +222,8 @@ void Database::getAllTasks()
     if (mysql_query(
         connection,
         query
-    ) != 0) {
-
+    ) != 0)
+    {
         std::cout
             << "Failed to retrieve tasks: "
             << mysql_error(connection)
@@ -154,7 +235,8 @@ void Database::getAllTasks()
     MYSQL_RES* result =
         mysql_store_result(connection);
 
-    if (!result) {
+    if (!result)
+    {
         std::cout
             << "No tasks found."
             << std::endl;
@@ -170,33 +252,43 @@ void Database::getAllTasks()
 
     while (
         (row = mysql_fetch_row(result))
-        ) {
+        )
+    {
         std::cout
             << "ID: "
             << (row[0] ? row[0] : "")
+
             << " | Title: "
             << (row[1] ? row[1] : "")
+
             << " | Course: "
             << (row[2] ? row[2] : "")
+
             << " | Due Date: "
             << (row[3] ? row[3] : "")
+
             << " | Priority: "
             << (row[4] ? row[4] : "")
+
             << " | Status: "
             << (row[5] ? row[5] : "")
+
             << " | Description: "
             << (row[6] ? row[6] : "")
+
             << std::endl;
     }
 
     mysql_free_result(result);
 }
 
+
 std::vector<Task> Database::getTasks()
 {
     std::vector<Task> tasks;
 
-    if (!connection) {
+    if (!connection)
+    {
         return tasks;
     }
 
@@ -208,8 +300,8 @@ std::vector<Task> Database::getTasks()
     if (mysql_query(
         connection,
         query
-    ) != 0) {
-
+    ) != 0)
+    {
         std::cout
             << "Failed to retrieve tasks: "
             << mysql_error(connection)
@@ -221,7 +313,8 @@ std::vector<Task> Database::getTasks()
     MYSQL_RES* result =
         mysql_store_result(connection);
 
-    if (!result) {
+    if (!result)
+    {
         return tasks;
     }
 
@@ -229,7 +322,8 @@ std::vector<Task> Database::getTasks()
 
     while (
         (row = mysql_fetch_row(result))
-        ) {
+        )
+    {
         Task task;
 
         task.id =
@@ -275,11 +369,14 @@ std::vector<Task> Database::getTasks()
     return tasks;
 }
 
+
 bool Database::updateTaskStatus(
     int id,
     const std::string& status
-) {
-    if (!connection) {
+)
+{
+    if (!connection)
+    {
         std::cout
             << "No database connection."
             << std::endl;
@@ -313,8 +410,8 @@ bool Database::updateTaskStatus(
     if (mysql_query(
         connection,
         query.c_str()
-    ) != 0) {
-
+    ) != 0)
+    {
         std::cout
             << "Failed to update task status: "
             << mysql_error(connection)
@@ -330,11 +427,14 @@ bool Database::updateTaskStatus(
     return true;
 }
 
+
 bool Database::validateUser(
     const std::string& username,
     const std::string& password
-) {
-    if (!connection) {
+)
+{
+    if (!connection)
+    {
         std::cout
             << "No database connection."
             << std::endl;
@@ -361,6 +461,7 @@ bool Database::validateUser(
         usernameLength
     );
 
+
     std::string escapedPassword(
         password.size() * 2 + 1,
         '\0'
@@ -380,6 +481,7 @@ bool Database::validateUser(
         passwordLength
     );
 
+
     std::string query =
         "SELECT id FROM users "
         "WHERE username='" +
@@ -388,13 +490,12 @@ bool Database::validateUser(
         escapedPassword +
         "' LIMIT 1";
 
-  
 
     if (mysql_query(
         connection,
         query.c_str()
-    ) != 0) {
-
+    ) != 0)
+    {
         std::cout
             << "Login query failed: "
             << mysql_error(connection)
@@ -403,16 +504,19 @@ bool Database::validateUser(
         return false;
     }
 
+
     MYSQL_RES* result =
         mysql_store_result(connection);
 
-    if (!result) {
+    if (!result)
+    {
         std::cout
             << "No login result returned."
             << std::endl;
 
         return false;
     }
+
 
     bool valid =
         mysql_num_rows(result) > 0;
